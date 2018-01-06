@@ -1,0 +1,10 @@
+<h1>id = <%= @memorandum.id %> のメモ詳細ページ</h1>
+
+<p><%= @memorandum.content %></p>
+<p><%= @memorandum.id %></p>
+<p><%= @memorandum.created_at %></p>
+<p><%= @memorandum.updated_at %></p>
+
+<%= link_to '一覧に戻る', memorandums_path %>
+<%= link_to 'このメッセージを編集する', edit_memorandum_path(@memorandum) %>
+<%= link_to 'このメッセージを削除する', @memorandum, method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %>

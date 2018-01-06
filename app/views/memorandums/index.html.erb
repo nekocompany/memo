@@ -1,0 +1,22 @@
+<h1>メモ入力欄</h1>
+
+<%= form_for(@memorandum) do |f| %>
+  <%= f.label :content, 'メモ' %>
+  <%= f.text_area :content, :size=>"60x10" %>
+
+  <%= f.submit '投稿' %>
+<% end %>
+
+
+<h1>メモ一覧</h1>
+
+<ul>
+  <% @memorandums.each do |memorandum| %>
+    <li>
+      <%= link_to memorandum.id, memorandum %> : <%= memorandum.content %>:<%= memorandum[:created_at].strftime("%Y-%m-%d_%H:%M") %>
+      <%= link_to '消去', memorandum, method: :delete, data: { confirm: 'メモを消してよろしいですか？' } %>
+    </li>
+  <% end %>
+</ul>
+
+

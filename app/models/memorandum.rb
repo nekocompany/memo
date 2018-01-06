@@ -1,0 +1,2 @@
+class Memorandum < ApplicationRecord
+end
