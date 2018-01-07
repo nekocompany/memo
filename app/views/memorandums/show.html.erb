@@ -1,10 +1,23 @@
 <h1>id = <%= @memorandum.id %> のメモ詳細ページ</h1>
 
-<p><%= @memorandum.content %></p>
-<p><%= @memorandum.id %></p>
-<p><%= @memorandum.created_at %></p>
-<p><%= @memorandum.updated_at %></p>
+ <table class="table table-bordered">
+    <thead>
+      <tr class="active">
+        <th>id</th>
+        <th>メモ</th>
+        <th>日時</th>
+      </tr>
+    </thead>
+    <tbody>
 
-<%= link_to '一覧に戻る', memorandums_path %>
-<%= link_to 'このメッセージを編集する', edit_memorandum_path(@memorandum) %>
-<%= link_to 'このメッセージを削除する', @memorandum, method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %>
+        <tr>
+          <td><%= @memorandum.id %></td>
+          <td><%= @memorandum.content %></td>
+          <td><%= @memorandum[:created_at].strftime("%Y-%m-%d_%H:%M") %></td>
+        </tr>
+
+    </tbody>
+  </table>
+
+<%= link_to 'このメッセージを編集する', edit_memorandum_path(@memorandum), class: 'btn btn-default' %>
+<%= link_to 'このメッセージを削除する', @memorandum, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>

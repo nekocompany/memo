@@ -1,7 +1,8 @@
 class MemorandumsController < ApplicationController
   def index
     #@memorandums = Memorandum.all
-    @memorandums = Memorandum.order('id DESC')
+    #@memorandums = Memorandum.order('id DESC')
+    @memorandums = Memorandum.order('id DESC').all.page(params[:page])
     @memorandum = Memorandum.new
   end
 
@@ -16,14 +17,16 @@ class MemorandumsController < ApplicationController
   end
 
   def create
+    
       @memorandum = Memorandum.new(memorandum_params)
 
     if @memorandum.save
-      #flash[:success] = 'メモ が正常に投稿されました'
+      flash[:success] = 'メモ が正常に投稿されました'
       redirect_to memorandums_path
+      
     else
-      flash.now[:danger] = 'メモ が投稿されませんでした'
-      render :new
+      flash[:danger] = 'メモ が投稿されませんでした'
+      redirect_to memorandums_path
     end
   end
 

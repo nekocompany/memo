@@ -1,22 +1,41 @@
-<h1>メモ入力欄</h1>
 
-<%= form_for(@memorandum) do |f| %>
-  <%= f.label :content, 'メモ' %>
-  <%= f.text_area :content, :size=>"60x10" %>
+<div class="row">
+  <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-12">
+    
+    <h1>メモ入力欄</h1>
+    
+    <%= render 'form', memorandum: @memorandum %>
+    
+    
+    <h1>メモ一覧</h1>
 
-  <%= f.submit '投稿' %>
+
+    <% if @memorandums.any? %>
+      <table class="table table-bordered">
+        <thead>
+          <tr class="active">
+            <th>id</th>
+            <th>メモ</th>
+            <th>日時</th>
+            <th align="center">消去ボタン</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @memorandums.each do |memorandum| %>
+            <tr>
+              <td><%= link_to memorandum.id, memorandum %></td>
+              <td><%= memorandum.content %></td>
+              <td><%= memorandum[:created_at].strftime("%Y-%m-%d_%H:%M") %></td>
+              <td align="center"><%= link_to '消去', memorandum, method: :delete, data: { confirm: 'タスクを消してよろしいですか?' }, class: 'btn btn-default' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+  </div>
+</div>
+
+  <div>
+    <%= paginate @memorandums %>
+  </div>
 <% end %>
-
-
-<h1>メモ一覧</h1>
-
-<ul>
-  <% @memorandums.each do |memorandum| %>
-    <li>
-      <%= link_to memorandum.id, memorandum %> : <%= memorandum.content %>:<%= memorandum[:created_at].strftime("%Y-%m-%d_%H:%M") %>
-      <%= link_to '消去', memorandum, method: :delete, data: { confirm: 'メモを消してよろしいですか？' } %>
-    </li>
-  <% end %>
-</ul>
-
-
